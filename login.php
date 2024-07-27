@@ -1,35 +1,61 @@
+<?php
+require_once 'header.html';
+require_once 'dbconnection.php';
+require_once 'sanitize.php';
+
+$conn = new mysqli($hn, $un, $pw, $db);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $tmp_username = sanitize($conn, $_POST['username']);
+    $tmp_password = sanitize($conn, $_POST['password']);
+    
+    $query = "SELECT password FROM users WHERE username = '$tmp_username'";
+    $result = $conn->query($query); 
+    if (!$result) {
+        die($conn->error);
+    }
+    
+    $passwordFromDB = ''; // Initialize the variable
+    if ($result->num_rows > 0) {  // there is more than 0 row
+        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {    
+            $passwordFromDB = $row['password'];
+        }
+        
+        // Compare passwords
+        if (password_verify($tmp_password, $passwordFromDB)) {
+            echo "successful login<br>";
+            session_start();
+            
+            $user = new User($tmp_username);            
+            $_SESSION['user'] = $user;
+            
+            header("Location: viewdramalist.php");
+            exit(); // Ensure no further code is executed after the redirect
+        } else {
+            echo "Invalid username or password";
+        }
+    } else {
+        echo "Invalid username or password";
+    }
+    
+    $conn->close();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - KDrama Website</title>
+    <title>Login - KDrama Project</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #fff;
             margin: 0;
             padding: 0;
-        }
-        header {
-            background: #9370Db;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-        }
-        nav {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            text-align: center;
-        }
-        nav li {
-            display: inline;
-            margin: 0 10px;
-        }
-        nav a {
-            text-decoration: none;
-            color: #fff;
         }
         .container {
             width: 80%;
@@ -66,20 +92,15 @@
             border: none;
             cursor: pointer;
         }
+        .link {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 1em;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Login to KDrama Website</h1>
-        <nav>
-            <ul>
-                <li><a href="viewdramalist.php">Home</a></li>
-                <li><a href="login.php">Login</a></li>
-                <li><a href="dramas.php">Dramas</a></li>
-                <li><a href="actors.php">Actors</a></li>
-            </ul>
-        </nav>
-    </header>
     <div class="container">
         <div class="content">
             <div class="login-box">
@@ -91,36 +112,9 @@
                     <input type="password" id="password" name="password" required>
                     <input type="submit" value="Login">
                 </form>
-                
-                <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    $username = $_POST['username'];
-                    $password = $_POST['password'];
-                    
-                    // Database connection
-                    $conn = new mysqli('localhost', 'root', '', 'final');
-                    
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-                    
-                    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-                    $result = $conn->query($sql);
-                    
-                    if ($result->num_rows > 0) {
-                        echo "Login successful";
-                        // Redirect to home page or user dashboard
-                        header("Location: viewdramalist.php");
-                        exit();
-                    } else {
-                        echo "Invalid username or password";
-                    }
-                    
-                    $conn->close();
-                }
-                ?>
             </div>
         </div>
     </div>
+    <a href="createaccount.php" class="link">Create new account</a>
 </body>
 </html>

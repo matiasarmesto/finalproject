@@ -59,9 +59,10 @@
     <div class="container">
         <div class="content">
             <h2>Update User</h2>
-            <?php
-            // Database connection
-            $conn = new mysqli('localhost', 'root', '', 'final');
+<?php
+require_once 'login.php';
+
+            $conn = new mysqli($hn, $un, $pw, $db);
 
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
@@ -90,7 +91,7 @@
                 $conn->close();
                 header('Location: ViewUsers.php');
             }
-            ?>
+?>
             <form action="UpdateUser.php" method="post">
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <label for="username">Username:</label>

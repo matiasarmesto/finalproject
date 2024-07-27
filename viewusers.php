@@ -15,9 +15,11 @@
             <th>Actions</th>
         </tr>
 
-        <?php
-        // Database connection
-        $conn = new mysqli('localhost', 'root', '', 'kdrama_db');
+<?php
+        
+require_once 'dbconnection.php';
+        
+        $conn = new mysqli($hn, $un, $pw, $db);
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -43,7 +45,7 @@
         }
 
         $conn->close();
-        ?>
+?>
     </table>
 </body>
 </html>

@@ -1,5 +1,8 @@
 <?php
-$conn = new mysqli('localhost', 'root', '', 'final');
+require_once 'login.php';
+
+
+$conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }
 
 if (isset($_GET['id'])) {

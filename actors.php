@@ -1,11 +1,7 @@
 <?php
+require_once 'login.php';
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "final";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($hn, $un, $pw, $db);
 
 
 if ($conn->connect_error) {
