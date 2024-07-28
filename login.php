@@ -2,6 +2,7 @@
 require_once 'header.html';
 require_once 'dbconnection.php';
 require_once 'sanitize.php';
+require_once 'user.php'; // Include the user class
 
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) {
@@ -42,7 +43,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     }
     
     $conn->close();
-}
+} else {
+    // Only output HTML if the form hasn't been submitted
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,3 +120,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     <a href="createaccount.php" class="link">Create new account</a>
 </body>
 </html>
+<?php
+}
+?>
+

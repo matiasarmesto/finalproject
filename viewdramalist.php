@@ -1,4 +1,11 @@
 <?php
+
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
+}
+
 require_once 'dbconnection.php'; 
 require_once 'header.html';
 

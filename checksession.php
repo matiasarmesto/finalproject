@@ -21,7 +21,7 @@ if($_SESSION['user']){
 	}
 	
 	if(!$found){
-		header("Location: unauthorized.php");
+		echo "unauthorized entry";
 		exit();
 	}	
 	

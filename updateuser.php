@@ -1,3 +1,7 @@
+<?php
+require_once 'dbconnection.php';
+require_once 'header.html';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,8 +64,6 @@
         <div class="content">
             <h2>Update User</h2>
 <?php
-require_once 'login.php';
-
             $conn = new mysqli($hn, $un, $pw, $db);
 
             if ($conn->connect_error) {
