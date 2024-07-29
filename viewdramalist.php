@@ -82,6 +82,18 @@ if ($result === false) {
         .drama-container a:hover {
             text-decoration: underline;
         }
+        .btn {
+        	display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #9370Db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #805cbf;
         .no-results {
             color: #ff0000;
         }
@@ -91,6 +103,7 @@ if ($result === false) {
 
     <div class="container">
         <div class="content">
+        <a href="adddrama.php" class="btn">Add K-Drama</a>
             <h2>Explore the World of K-Dramas</h2>
             <p>Discover the latest and most popular Korean dramas, learn about your favorite actors, and purchase dramas to watch via our streaming service.</p>
             <p>
@@ -102,7 +115,7 @@ if ($result === false) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<li class='drama-container'>";
                         echo "<img src='" . htmlspecialchars($row["imagepath"]) . "' alt='" . htmlspecialchars($row["title"]) . " image'>";
-                        echo "<a href='dramadetails.php?id=" . $row["drama_id"] . "'>" . htmlspecialchars($row["title"]) . "</a>";
+                        echo "<a href='dramadetails.php?drama_id=" . $row["drama_id"] . "'>" . htmlspecialchars($row["title"]) . "</a>";
                         echo "</li>";
                     }
                 } else {
