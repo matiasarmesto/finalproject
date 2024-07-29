@@ -33,10 +33,10 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Details - <?php echo htmlspecialchars($row['title']); ?></title>
+    <title><strong>Details - <?php echo htmlspecialchars($row['title']); ?></strong></title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Trebuchet MS, sans-serif;
             background-color: #fff;
             margin: 0;
             padding: 0;
@@ -110,11 +110,11 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <h1>Details - <?php echo htmlspecialchars($row['title']); ?></h1>
+        <h1><strong>Details -</strong></h1>
         <div class="drama-container">
             <img src="<?php echo htmlspecialchars($row['imagepath']); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
             <div class="drama-details">
-                <h2><?php echo htmlspecialchars($row['title']); ?></h2>
+                <h2><strong><?php echo htmlspecialchars($row['title']); ?></strong></h2>
                 <p><strong>Synopsis:</strong> <?php echo htmlspecialchars($row['synopsis']); ?></p>
                 <p><strong>Release Date:</strong> <?php echo htmlspecialchars($row['release_date']); ?></p>
                 <p><strong>Genre:</strong> <?php echo htmlspecialchars($row['genre']); ?></p>

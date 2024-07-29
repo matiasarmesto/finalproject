@@ -29,12 +29,16 @@ if ($result === false) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page - KDrama Website</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Trebuchet MS, sans-serif;
             background-color: #fff;
             margin: 0;
             padding: 0;
+            font-weight: Regular 400;
         }
         header {
             background: #9370Db;
@@ -75,9 +79,11 @@ if ($result === false) {
         }
         .drama-container a {
             text-decoration: none;
+            font-family: 'Bebas Neue', sans-serif;
             color: #333;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 33px;
+            font-weight: 400;
+            font-style:normal;
         }
         .drama-container a:hover {
             text-decoration: underline;
@@ -86,7 +92,7 @@ if ($result === false) {
         	display: inline-block;
             padding: 10px 20px;
             margin: 10px 0;
-            background-color: #9370Db;
+            background-color: #333;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
