@@ -1,13 +1,11 @@
 <?php
+$page_roles=array('user','admin');
 
-session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
-    exit();
-}
-
-require_once 'dbconnection.php'; 
+require_once 'dbconnection.php';
 require_once 'header.html';
+require_once 'checksession.php';
+require_once 'user.php';
+
 
 $conn = new mysqli($hn, $un, $pw, $db);
 
@@ -29,9 +27,9 @@ if ($result === false) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page - KDrama Website</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: Trebuchet MS, sans-serif;
@@ -39,14 +37,6 @@ if ($result === false) {
             margin: 0;
             padding: 0;
             font-weight: Regular 400;
-        }
-        header {
-            background: #9370Db;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-            font-family: 'Arsenal', sans-serif;
-            font-weight: 700;
         }
         .container {
             width: 80%;
@@ -83,13 +73,13 @@ if ($result === false) {
             color: #333;
             font-size: 33px;
             font-weight: 400;
-            font-style:normal;
+            font-style: normal;
         }
         .drama-container a:hover {
             text-decoration: underline;
         }
         .btn {
-        	display: inline-block;
+            display: inline-block;
             padding: 10px 20px;
             margin: 10px 0;
             background-color: #333;
@@ -100,16 +90,16 @@ if ($result === false) {
         }
         .btn:hover {
             background-color: #805cbf;
+        }
         .no-results {
             color: #ff0000;
         }
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="content">
-        <a href="adddrama.php" class="btn">Add K-Drama</a>
+            <a href="adddrama.php" class="btn">Add K-Drama</a>
             <h2>Explore the World of K-Dramas</h2>
             <p>Discover the latest and most popular Korean dramas, learn about your favorite actors, and purchase dramas to watch via our streaming service.</p>
             <p>
@@ -134,4 +124,3 @@ if ($result === false) {
     </div>
 </body>
 </html>
-

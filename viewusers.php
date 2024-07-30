@@ -1,3 +1,11 @@
+<?php
+$page_roles=array('user','admin');
+session_start();
+require_once 'dbconnection.php';
+require_once 'header.html';
+require_once 'checksession.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,9 +24,7 @@
         </tr>
 
 <?php
-        
-require_once 'dbconnection.php';
-        
+                
         $conn = new mysqli($hn, $un, $pw, $db);
 
         if ($conn->connect_error) {

@@ -1,6 +1,9 @@
 <?php
+$page_roles=array('user','admin');
+session_start();
 require_once 'dbconnection.php'; 
 require_once 'header.html';
+//require_once 'checksession.php';
 
 $conn = new mysqli($hn, $un, $pw, $db);
 
@@ -53,6 +56,7 @@ $conn->close();
             width: 80%;
             margin: auto;
             overflow: hidden;
+            position: relative;
         }
         .content {
             padding: 20px;
@@ -106,6 +110,20 @@ $conn->close();
         .no-results {
             color: #ff0000;
         }
+        .btn-purchase {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: pink;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            position: absolute;
+            right: 20px;
+            text-align: center;
+        }
+        .btn-purchase:hover {
+            background-color: #ff69b4;
+        }
     </style>
 </head>
 <body>
@@ -123,9 +141,7 @@ $conn->close();
         </div>
         <a href="viewdramalist.php" class="btn">Back to K-Drama List</a>
         <a href="updatedrama.php?id=<?php echo htmlspecialchars($row['drama_id']); ?>" class="btn btn-update">Update Details</a>
-        
+        <a href="purchase.php?drama_id=<?php echo htmlspecialchars($row['drama_id']); ?>" class="btn btn-purchase">Purchase</a>
     </div>
 </body>
 </html>
-
-    

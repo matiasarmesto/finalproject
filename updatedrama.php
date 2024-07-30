@@ -1,6 +1,9 @@
 <?php
+$page_roles=array('admin');
+session_start();
 require_once 'dbconnection.php'; 
 require_once 'header.html';
+//require_once 'checksession.php';
 
 $conn = new mysqli($hn, $un, $pw, $db);
 
