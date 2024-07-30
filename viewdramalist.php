@@ -4,7 +4,7 @@ $page_roles=array('user','admin');
 require_once 'dbconnection.php';
 require_once 'header.html';
 require_once 'checksession.php';
-require_once 'user.php';
+//require_once 'user.php';
 
 
 $conn = new mysqli($hn, $un, $pw, $db);

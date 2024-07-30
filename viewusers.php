@@ -1,6 +1,6 @@
 <?php
 $page_roles=array('user','admin');
-session_start();
+
 require_once 'dbconnection.php';
 require_once 'header.html';
 require_once 'checksession.php';

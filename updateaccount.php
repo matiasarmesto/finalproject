@@ -1,4 +1,6 @@
 <?php
+$page_roles=array('user','admin');
+
 require_once 'checksession.php';
 require_once 'dbconnection.php';
 require_once 'sanitize.php';

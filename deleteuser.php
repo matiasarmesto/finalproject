@@ -1,9 +1,9 @@
 <?php
 $page_roles=array('admin');
-session_start();
+
 require_once 'login.php';
 require_once 'header.html';
-//require_once 'checksession.php';
+require_once 'checksession.php';
 
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }

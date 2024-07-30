@@ -1,4 +1,5 @@
 <?php
+
 require_once 'user.php'; // Ensure this file includes the User class definition
 
 // Initialize session if not already started
@@ -7,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Check if user is logged in
-if (!isset($_SESSION['user']) || !$_SESSION['user'] instanceof User) {
+if (!isset($_SESSION['user'])) {
     error_log("Session data is not a User object. Type: " . gettype($_SESSION['user']));
     header("Location: login.php");
     exit();
@@ -19,7 +20,7 @@ $user_roles = $user->getRoles();
 $username = $user->username;
 
 // Define or retrieve $page_roles
-$page_roles = ['user', 'admin'];
+//$page_roles = ['user', 'admin'];
 $found = false;
 
 // Check if user has one of the required roles

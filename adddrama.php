@@ -1,9 +1,9 @@
 <?php
 $page_roles=array('admin');
-session_start();
+
 require_once 'dbconnection.php';
 require_once 'header.html';
-//require_once 'checksession.php';
+require_once 'checksession.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $conn->real_escape_string($_POST['title']);

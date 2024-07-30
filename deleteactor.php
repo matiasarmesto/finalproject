@@ -1,9 +1,9 @@
 <?php
 $page_roles=array('admin');
-session_start();
+
 require_once 'dbconnection.php';
 require_once 'header.html';
-//require_once 'checksession.php';
+require_once 'checksession.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die("Invalid actor ID.");

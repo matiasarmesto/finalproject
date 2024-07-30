@@ -1,7 +1,9 @@
 <?php
-session_start();
+$page_roles=array('user','admin');
+
 require_once 'dbconnection.php'; 
 require_once 'header.html';
+require_once 'checksession.php';
 
 if (isset($_GET['drama_id'])) {
     $drama_id = $_GET['drama_id'];
