@@ -5,16 +5,22 @@ require_once 'dbconnection.php';
 require_once 'header.html';
 require_once 'checksession.php';
 
+$conn = new mysqli($hn, $un, $pw, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $conn->real_escape_string($_POST['title']);
     $imagepath = $conn->real_escape_string($_POST['imagepath']);
     $genre = $conn->real_escape_string($_POST['genre']);
-    $description = $conn->real_escape_string($_POST['description']);
+    $synopsis = $conn->real_escape_string($_POST['synopsis']);
     $release_date = $conn->real_escape_string($_POST['release_date']);
     $rating = $conn->real_escape_string($_POST['rating']);
 
-    $query = "INSERT INTO dramas (title, imagepath, genre, description, release_date, rating) 
-              VALUES ('$title', '$imagepath', '$genre', '$description', '$release_date', '$rating')";
+    $query = "INSERT INTO dramas (title, imagepath, genre, synopsis, release_date, rating) 
+              VALUES ('$title', '$imagepath', '$genre', '$synopsis', '$release_date', '$rating')";
 
     if ($conn->query($query) === TRUE) {
         header("Location: viewdramalist.php?message=Drama added successfully");
@@ -106,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="genre">Genre</label>
                 <input type="text" id="genre" name="genre" required>
                 
-                <label for="description">Synopsis</label>
+                <label for="synopsis">Synopsis</label>
                 <input type="text" id="synopsis" name="synopsis" required></textarea>
                 
                 <label for="release_date">Release Date</label>
