@@ -1,11 +1,9 @@
 <?php
-require_once 'User.php'; 
-session_start();
-
 $page_roles = array('user', 'admin'); 
 
 require_once 'dbconnection.php';
 require_once 'checksession.php';
+
 
 $conn = new mysqli($hn, $un, $pw, $db);
 
@@ -118,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </style>
 </head>
 <body>
-    <?php include('header.html'); ?>
+    <?php require_once 'header.html'; ?>
     <div class="container">
         <h1>Checkout</h1>
         <form action="checkout.php" method="post">

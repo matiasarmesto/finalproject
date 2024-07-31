@@ -110,7 +110,7 @@ $conn->close();
         .no-results {
             color: #ff0000;
         }
-        .btn-purchase {
+        .btn-add_to_cart {
             display: inline-block;
             padding: 10px 20px;
             background-color: pink;
@@ -141,7 +141,7 @@ $conn->close();
         </div>
         <a href="viewdramalist.php" class="btn">Back to K-Drama List</a>
         <a href="updatedrama.php?id=<?php echo htmlspecialchars($row['drama_id']); ?>" class="btn btn-update">Update Details</a>
-        <a href="purchase.php?drama_id=<?php echo htmlspecialchars($row['drama_id']); ?>" class="btn btn-purchase">Purchase</a>
+        <a href="add-to-cart.php?drama_id=<?php echo htmlspecialchars($row['drama_id']); ?>" class="btn btn-add_to_cart">Add to Cart</a>
     </div>
 </body>
 </html>
