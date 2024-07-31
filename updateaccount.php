@@ -4,6 +4,7 @@ $page_roles=array('user','admin');
 require_once 'checksession.php';
 require_once 'dbconnection.php';
 require_once 'sanitize.php';
+require_once 'header.html';
 
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) {
@@ -13,29 +14,29 @@ if ($conn->connect_error) {
 $user = $_SESSION['user'];
 $username = $user->username;
 
-$query = "SELECT first_name, last_name, username FROM users WHERE username=?";
+$query = "SELECT firstname, lastname, username FROM users WHERE username=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param('s', $username);
 $stmt->execute();
-$stmt->bind_result($first_name, $last_name, $username);
+$stmt->bind_result($firstname, $lastname, $username);
 $stmt->fetch();
 $stmt->close();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $new_first_name = sanitize($conn, $_POST['first_name']);
-    $new_last_name = sanitize($conn, $_POST['last_name']);
+    $new_first_name = sanitize($conn, $_POST['firstname']);
+    $new_last_name = sanitize($conn, $_POST['lastname']);
     $new_username = sanitize($conn, $_POST['username']);
     $new_password = sanitize($conn, $_POST['password']);
     
     if (!empty($new_password)) {
         $new_password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
-        $update_query = "UPDATE users SET first_name=?, last_name=?, username=?, password=? WHERE username=?";
+        $update_query = "UPDATE users SET firstname=?, lastname=?, username=?, password=? WHERE username=?";
         $stmt = $conn->prepare($update_query);
-        $stmt->bind_param('sssss', $new_first_name, $new_last_name, $new_username, $new_password_hashed, $username);
+        $stmt->bind_param('sssss', $new_firstname, $new_lastname, $new_username, $new_password_hashed, $username);
     } else {
-        $update_query = "UPDATE users SET first_name=?, last_name=?, username=? WHERE username=?";
+        $update_query = "UPDATE users SET firstname=?, lastname=?, username=? WHERE username=?";
         $stmt = $conn->prepare($update_query);
-        $stmt->bind_param('ssss', $new_first_name, $new_last_name, $new_username, $username);
+        $stmt->bind_param('ssss', $new_firstname, $new_lastname, $new_username, $username);
     }
 
     if ($stmt->execute()) {
@@ -116,10 +117,10 @@ $conn->close();
                 <?php if (!empty($error)) { echo "<p class='error'>$error</p>"; } ?>
                 <form action="updateaccount.php" method="post">
                     <label for="first_name">First Name</label>
-                    <input type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
+                    <input type="text" id="firstname" name="firstname" value="<?php echo htmlspecialchars($firstname); ?>" required>
                     
                     <label for="last_name">Last Name</label>
-                    <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
+                    <input type="text" id="lastname" name="lastname" value="<?php echo htmlspecialchars($lastname); ?>" required>
                     
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" required>
