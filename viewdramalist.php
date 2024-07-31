@@ -1,11 +1,9 @@
 <?php
-$page_roles=array('user','admin');
+$page_roles = array('user', 'admin');
 
 require_once 'dbconnection.php';
 require_once 'header.html';
 require_once 'checksession.php';
-//require_once 'user.php';
-
 
 $conn = new mysqli($hn, $un, $pw, $db);
 
@@ -13,7 +11,16 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT drama_id, title, imagepath FROM dramas";
+$sql = "
+    SELECT d.drama_id, d.title, d.imagepath, 
+           GROUP_CONCAT(CONCAT(a.last_name, ' ', a.first_name) SEPARATOR ', ') AS actors,
+           CONCAT(dir.lastname, ' ', dir.firstname) AS director
+    FROM dramas d
+    LEFT JOIN drama_actors da ON d.drama_id = da.drama_id
+    LEFT JOIN actors a ON da.actor_id = a.actor_id
+    LEFT JOIN director dir ON d.directorID = dir.directorID
+    GROUP BY d.drama_id, d.title, d.imagepath, dir.lastname, dir.firstname
+";
 $result = $conn->query($sql);
 
 if ($result === false) {
@@ -111,7 +118,11 @@ if ($result === false) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<li class='drama-container'>";
                         echo "<img src='" . htmlspecialchars($row["imagepath"]) . "' alt='" . htmlspecialchars($row["title"]) . " image'>";
+                        echo "<div>";
                         echo "<a href='dramadetails.php?drama_id=" . $row["drama_id"] . "'>" . htmlspecialchars($row["title"]) . "</a>";
+                        echo "<p>Actors: " . htmlspecialchars($row["actors"]) . "</p>";
+                        echo "<p>Director: " . htmlspecialchars($row["director"]) . "</p>";
+                        echo "</div>";
                         echo "</li>";
                     }
                 } else {

@@ -23,8 +23,8 @@ $stmt->fetch();
 $stmt->close();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $new_first_name = sanitize($conn, $_POST['firstname']);
-    $new_last_name = sanitize($conn, $_POST['lastname']);
+    $new_firstname = sanitize($conn, $_POST['firstname']);
+    $new_lastname = sanitize($conn, $_POST['lastname']);
     $new_username = sanitize($conn, $_POST['username']);
     $new_password = sanitize($conn, $_POST['password']);
     

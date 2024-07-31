@@ -13,16 +13,34 @@ if ($conn->connect_error) {
 
 if (isset($_GET['drama_id'])) {
     $drama_id = $_GET['drama_id'];
-    $query = "SELECT * FROM dramas WHERE drama_id = $drama_id";
-    $result = $conn->query($query);
-    
-    if (!$result) {
-        die($conn->error);
-    }
 
-    $row = $result->fetch_assoc();
-    if (!$row) {
-        die("No data found for the specified drama ID.");
+    // Query to get drama details and its awards
+    $query = "
+        SELECT d.*, GROUP_CONCAT(a.award_name SEPARATOR ', ') AS awards
+        FROM dramas d
+        LEFT JOIN drama_awards da ON d.drama_id = da.drama_id
+        LEFT JOIN awards a ON da.awardID = a.awardID
+        WHERE d.drama_id = ?
+        GROUP BY d.drama_id
+    ";
+    
+    if ($stmt = $conn->prepare($query)) {
+        $stmt->bind_param('i', $drama_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if (!$result) {
+            die($conn->error);
+        }
+
+        $row = $result->fetch_assoc();
+        if (!$row) {
+            die("No data found for the specified drama ID.");
+        }
+        
+        $stmt->close();
+    } else {
+        die("Error preparing statement: " . $conn->error);
     }
 } else {
     die("No drama ID provided.");
@@ -137,6 +155,7 @@ $conn->close();
                 <p><strong>Release Date:</strong> <?php echo htmlspecialchars($row['release_date']); ?></p>
                 <p><strong>Genre:</strong> <?php echo htmlspecialchars($row['genre']); ?></p>
                 <p><strong>Rating:</strong> <?php echo htmlspecialchars($row['rating']); ?></p>
+                <p><strong>Awards:</strong> <?php echo htmlspecialchars($row['awards']) ?: 'No awards received'; ?></p>
             </div>
         </div>
         <a href="viewdramalist.php" class="btn">Back to K-Drama List</a>

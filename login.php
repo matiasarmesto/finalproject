@@ -54,7 +54,42 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - KDrama Project</title>
     <style>
-        /* Your styles here */
+      body {
+            font-family: Trebuchet MS, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            font-weight:regular;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .content {
+            padding: 20px;
+        }
+        .login-box{
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc
+            border-radius:5px;
+            background-color:#f9f9f9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #805cbf;
+        }
     </style>
 </head>
 <body>
