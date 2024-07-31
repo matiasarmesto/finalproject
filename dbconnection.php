@@ -1,6 +1,12 @@
 <?php
-$hn = 'localhost:3306';
+$hn = 'localhost';
+$un = 'root'; 
+$pw = ''; 
 $db = 'final';
-$un = 'root';
-$pw = 'root';
+
+$conn = new mysqli($hn, $un, $pw, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>
